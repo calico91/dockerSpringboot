@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 @Service
 @Slf4j
@@ -20,4 +21,15 @@ public class ClienteService {
             throw new RuntimeException(ex.getMessage());
         }
     }
+
+    public List<Cliente> consultarClientes() {
+
+        try {
+            return clienteRepository.findAll();
+
+        } catch (RuntimeException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
 }
