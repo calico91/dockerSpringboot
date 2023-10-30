@@ -32,4 +32,16 @@ public class ClienteController {
         return ResponseEntity.ok().body(clienteService.consultarClientes());
     }
 
+    @GetMapping("/consultar-cliente-por-id/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Cliente> consultarClientePorId(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(clienteService.consultarClientePorId(id));
+    }
+
+    @PutMapping("/modificar-cliente/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Cliente> modificarCliente(@PathVariable Integer id, @RequestBody Cliente cliente) {
+        return ResponseEntity.ok().body(clienteService.modificarCliente(id, cliente));
+    }
+
 }

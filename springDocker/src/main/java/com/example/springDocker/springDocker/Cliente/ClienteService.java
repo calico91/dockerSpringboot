@@ -32,4 +32,30 @@ public class ClienteService {
         }
     }
 
+    public Cliente consultarClientePorId(Integer id) {
+
+        try {
+            Cliente cliente = clienteRepository.findById(id).orElseThrow(
+
+            );
+            return cliente;
+
+        } catch (RuntimeException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
+    public Cliente modificarCliente(Integer id, Cliente cliente) {
+
+        try {
+            Cliente clienteBD = clienteRepository.findById(id).orElseThrow();
+
+            cliente.setId(clienteBD.getId());
+            return clienteRepository.save(cliente);
+
+        } catch (RuntimeException ex) {
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
 }
