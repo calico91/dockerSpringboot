@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: easyStock
+    ports:
+      - "5432:5432"
+    restart: always
+
+
+  app:
+    image: 'docker-app-crud:latest'
+    build:
+      context: .
+    ports:
+      - "8096:8096"
+    container_name: docker-app-crud
+    volumes:
+      - sp_volumen:/tmp
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/springDocker
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
+  sp_volumen:
