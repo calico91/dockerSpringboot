@@ -10,7 +10,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: easyStock
+      POSTGRES_DB: springDocker
     ports:
       - "5432:5432"
     restart: always
