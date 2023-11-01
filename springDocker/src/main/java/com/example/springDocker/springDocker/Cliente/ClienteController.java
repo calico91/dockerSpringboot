@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/cliente")
+@CrossOrigin(origins = "http://localhost:4200/", methods = {RequestMethod.POST, RequestMethod.DELETE, RequestMethod.GET, RequestMethod.PUT})
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -24,6 +25,13 @@ public class ClienteController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
         return ResponseEntity.ok().body(clienteService.crearCliente(cliente));
+    }
+
+    @DeleteMapping("/eliminar/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Void> eliminarCliente(@PathVariable Integer id) {
+        clienteService.eliminarCliente(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/consultar-clientes")

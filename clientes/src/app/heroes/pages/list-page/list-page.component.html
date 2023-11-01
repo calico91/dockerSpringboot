@@ -1,0 +1,37 @@
+<h1>Listado de Clientes</h1>
+<mat-divider></mat-divider>
+
+<div class="grid bm-8 pt-2">
+  <div class="col-12 sm:col-4 md:col-3 xl:col-2">
+    <table>
+      <thead>
+        <tr>
+          <th class="sm: col-4">nombre</th>
+          <th class="sm: col-4">apellido</th>
+          <th class="sm: col-4">cedula</th>
+          <th class="sm: col-4">pais</th>
+          <th class="sm: col-4">celular</th>
+          <th class="sm: col-4">Accion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+        <td class="sm: col-4">{{cliente.nombres}}</td>
+        <td class="sm: col-4">{{cliente.apellidos}}</td>
+        <td class="sm: col-4">{{cliente.cedula}}</td>
+        <td class="sm: col-4">{{cliente.pais}}</td>
+        <td class="sm: col-4">{{cliente.celular}}</td>
+        <td class="sm: col-4"> <button mat-button mat-raised color="primary" [routerLink]="['/cliente/modificar-cliente', cliente.id ]">
+            <mat-icon>edit</mat-icon>
+            Editar
+          </button>
+          <button (click)="onDelete(cliente.id)" mat-button mat-raised color="warning">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+          </button>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

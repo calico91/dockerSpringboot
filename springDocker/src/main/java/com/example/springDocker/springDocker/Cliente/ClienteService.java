@@ -45,6 +45,10 @@ public class ClienteService {
         }
     }
 
+    public void eliminarCliente(Integer id){
+        clienteRepository.deleteById(id);
+    }
+
     public Cliente modificarCliente(Integer id, Cliente cliente) {
 
         try {
