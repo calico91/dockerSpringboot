@@ -16,22 +16,37 @@ services:
     restart: always
 
 
-  app:
-    image: 'docker-app-crud:latest'
+  backend:
+    image: 'docker-app-crud-sp:latest'
     build:
       context: .
     ports:
       - "8096:8096"
-    container_name: docker-app-crud
+    container_name: spring-app
     volumes:
       - sp_volumen:/tmp
     depends_on:
+      - db
+    links:
       - db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/springDocker
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=admin
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  
+  frontend:
+        image: 'docker-app-crud-an:latest'
+        container_name: angular-app
+        build:
+            context: ../clientes
+        ports:
+            - "4200:4200"
+        depends_on:
+            - backend
+        links:
+            - backend    
 
 
   pgadmin:
